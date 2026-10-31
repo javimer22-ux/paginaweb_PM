@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
+import { NavLink, Link } from 'react-router-dom';
 import { Menu, X, MessageCircle } from 'lucide-react';
-import { siteData } from '../data/siteData';
+import { companyData } from '../data/company';
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { info } = siteData;
+  const { info } = companyData;
 
   const navLinks = [
-    { name: 'Inicio', href: '#inicio' },
-    { name: 'Servicios', href: '#servicios' },
-    { name: 'Portafolio', href: '#portafolio' },
-    { name: 'Nosotros', href: '#nosotros' },
-    { name: 'Contacto', href: '#contacto' },
+    { name: 'Inicio', path: '/' },
+    { name: 'Servicios', path: '/servicios' },
+    { name: 'Proyectos', path: '/proyectos' },
+    { name: 'Nosotros', path: '/nosotros' },
+    { name: 'Contacto', path: '/contacto' },
   ];
 
   const whatsappUrl = `https://wa.me/${info.whatsappNumber}?text=Hola,%20quisiera%20cotizar%20un%20proyecto`;
@@ -22,25 +23,29 @@ export const Navbar = () => {
         <div className="flex items-center justify-between h-20">
           
           {/* Logo */}
-          <a href="#inicio" className="flex flex-col">
+          <Link to="/" className="flex flex-col">
             <span className="text-xl sm:text-2xl font-black tracking-wider text-yellow-400 uppercase">
               {info.name.split(' ')[0]} <span className="text-white">{info.name.split(' ').slice(1).join(' ')}</span>
             </span>
             <span className="text-[10px] text-zinc-400 tracking-widest uppercase font-semibold">
               Publicidad & Señalética
             </span>
-          </a>
+          </Link>
 
           {/* Menú Desktop */}
-          <nav className="hidden md:flex items-center gap-8 font-medium text-sm text-zinc-300">
+          <nav className="hidden md:flex items-center gap-8 font-medium text-sm">
             {navLinks.map((link) => (
-              <a
+              <NavLink
                 key={link.name}
-                href={link.href}
-                className="hover:text-yellow-400 transition-colors duration-200"
+                to={link.path}
+                className={({ isActive }) =>
+                  isActive
+                    ? 'text-yellow-400 font-bold border-b-2 border-yellow-400 pb-1'
+                    : 'text-zinc-300 hover:text-yellow-400 transition-colors duration-200'
+                }
               >
                 {link.name}
-              </a>
+              </NavLink>
             ))}
           </nav>
 
@@ -62,6 +67,7 @@ export const Navbar = () => {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="text-zinc-300 hover:text-yellow-400 p-2"
+              aria-label="Abrir menú de navegación"
             >
               {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -73,14 +79,18 @@ export const Navbar = () => {
       {isOpen && (
         <div className="md:hidden bg-zinc-950 border-b border-zinc-800 px-4 pt-2 pb-6 space-y-3">
           {navLinks.map((link) => (
-            <a
+            <NavLink
               key={link.name}
-              href={link.href}
+              to={link.path}
               onClick={() => setIsOpen(false)}
-              className="block py-2 text-base font-medium text-zinc-300 hover:text-yellow-400"
+              className={({ isActive }) =>
+                `block py-2 text-base font-medium ${
+                  isActive ? 'text-yellow-400 font-bold' : 'text-zinc-300 hover:text-yellow-400'
+                }`
+              }
             >
               {link.name}
-            </a>
+            </NavLink>
           ))}
           <a
             href={whatsappUrl}

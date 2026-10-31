@@ -1,9 +1,9 @@
 import React from 'react';
 import { ShieldCheck, Cpu, Wrench } from 'lucide-react';
-import { siteData } from '../data/siteData';
+import { companyData } from '../data/company';
 
 export const About = () => {
-  const { about } = siteData;
+  const { about } = companyData;
 
   const features = [
     {
@@ -66,7 +66,7 @@ export const About = () => {
                 return (
                   <div key={index} className="p-4 bg-zinc-900 rounded-xl border border-zinc-800 space-y-2">
                     <Icon className="w-5 h-5 text-yellow-400" />
-                    <h4 className="text-sm font-bold text-white">{feat.title}</h4>
+                    <h3 className="text-sm font-bold text-white">{feat.title}</h3>
                     <p className="text-xs text-zinc-400">{feat.description}</p>
                   </div>
                 );

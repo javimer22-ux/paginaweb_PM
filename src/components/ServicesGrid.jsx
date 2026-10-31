@@ -1,15 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ArrowUpRight, MessageCircle } from 'lucide-react';
-import { siteData } from '../data/siteData';
+import { servicesData } from '../data/services';
+import { companyData } from '../data/company';
 
 export const ServicesGrid = () => {
-  const { services, info } = siteData;
+  const { info } = companyData;
 
   return (
     <section id="servicios" className="py-20 bg-zinc-950 text-white border-b border-zinc-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Encabezado de la Sección */}
+        {/* Encabezado */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <div className="inline-block bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest">
             Catálogo Principal
@@ -24,7 +26,7 @@ export const ServicesGrid = () => {
 
         {/* Grilla de Tarjetas */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service) => {
+          {servicesData.map((service) => {
             const whatsappServiceUrl = `https://wa.me/${info.whatsappNumber}?text=Hola,%20me%20interesa%20cotizar:%20${encodeURIComponent(service.title)}`;
 
             return (
@@ -61,16 +63,16 @@ export const ServicesGrid = () => {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 text-xs font-bold text-yellow-400 hover:text-yellow-300 transition-colors"
                     >
-                      <MessageCircle className="w-4 h-4 fill-yellow-400/20" />
+                      <MessageCircle className="w-4 h-4" />
                       <span>Cotizar este producto</span>
                     </a>
-                    <a
-                      href="#contacto"
-                      className="p-2 rounded-lg bg-zinc-800 text-zinc-300 group-hover:bg-yellow-400 group-hover:text-zinc-950 transition-all"
-                      aria-label="Ir a contacto"
+                    <Link
+                      to={`/servicios/${service.slug}`}
+                      className="p-2 rounded-lg bg-zinc-800 text-zinc-300 hover:bg-yellow-400 hover:text-zinc-950 transition-all"
+                      aria-label="Ver detalle del servicio"
                     >
                       <ArrowUpRight className="w-4 h-4" />
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>

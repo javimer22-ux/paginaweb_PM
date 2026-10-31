@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { Eye, X, MessageCircle } from 'lucide-react';
-import { siteData } from '../data/siteData';
+import { portfolioData } from '../data/portfolio';
+import { companyData } from '../data/company';
 
 export const Portfolio = () => {
-  const { portfolio, info } = siteData;
+  const { info } = companyData;
   const [activeFilter, setActiveFilter] = useState('todos');
   const [selectedImage, setSelectedImage] = useState(null);
 
@@ -18,8 +19,8 @@ export const Portfolio = () => {
   ];
 
   const filteredItems = activeFilter === 'todos'
-    ? portfolio
-    : portfolio.filter((item) => item.category === activeFilter);
+    ? portfolioData
+    : portfolioData.filter((item) => item.category === activeFilter);
 
   return (
     <section id="portafolio" className="py-20 bg-zinc-950 text-white border-b border-zinc-800">
@@ -38,7 +39,7 @@ export const Portfolio = () => {
           </p>
         </div>
 
-        {/* Filtros por Pestaña */}
+        {/* Filtros */}
         <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-12">
           {categories.map((cat) => (
             <button
@@ -55,7 +56,7 @@ export const Portfolio = () => {
           ))}
         </div>
 
-        {/* Grilla de Fotografías */}
+        {/* Grilla de Proyectos */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredItems.map((item) => (
             <div
@@ -70,19 +71,17 @@ export const Portfolio = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-transparent opacity-80 group-hover:opacity-95 transition-opacity" />
 
-              {/* Botón Flotante Ver */}
               <div className="absolute top-4 right-4 p-2 bg-zinc-950/80 backdrop-blur-md rounded-lg border border-zinc-800 text-yellow-400 opacity-0 group-hover:opacity-100 transition-opacity">
                 <Eye className="w-4 h-4" />
               </div>
 
-              {/* Título de la Foto */}
               <div className="absolute bottom-4 left-4 right-4 space-y-1">
                 <span className="text-[10px] uppercase font-bold tracking-widest text-yellow-400">
                   {item.category.replace('-', ' ')}
                 </span>
-                <h4 className="text-base font-bold text-white group-hover:text-yellow-300 transition-colors">
+                <h3 className="text-base font-bold text-white group-hover:text-yellow-300 transition-colors">
                   {item.title}
-                </h4>
+                </h3>
               </div>
             </div>
           ))}
@@ -90,7 +89,7 @@ export const Portfolio = () => {
 
       </div>
 
-      {/* Modal / Lightbox de Ampliación */}
+      {/* Visor Modal / Lightbox */}
       {selectedImage && (
         <div
           className="fixed inset-0 z-50 bg-zinc-950/90 backdrop-blur-md flex items-center justify-center p-4"
@@ -100,7 +99,6 @@ export const Portfolio = () => {
             className="relative max-w-4xl w-full bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-800 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Botón Cerrar */}
             <button
               onClick={() => setSelectedImage(null)}
               className="absolute top-4 right-4 z-10 p-2 bg-zinc-950/80 text-zinc-300 hover:text-yellow-400 rounded-full border border-zinc-800 transition-colors"
@@ -108,7 +106,6 @@ export const Portfolio = () => {
               <X className="w-5 h-5" />
             </button>
 
-            {/* Imagen Ampliada */}
             <div className="max-h-[70vh] bg-zinc-950 flex items-center justify-center overflow-hidden">
               <img
                 src={selectedImage.image}
@@ -117,7 +114,6 @@ export const Portfolio = () => {
               />
             </div>
 
-            {/* Pie del Modal */}
             <div className="p-6 bg-zinc-900 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-t border-zinc-800">
               <div>
                 <span className="text-xs uppercase font-bold tracking-widest text-yellow-400">

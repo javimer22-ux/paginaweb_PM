@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ChevronRight, Sparkles } from 'lucide-react';
-import { siteData } from '../data/siteData';
+import { companyData } from '../data/company';
 
 export const Hero = () => {
-  const { info, trustPoints } = siteData;
+  const { info, trustPoints } = companyData;
   const whatsappUrl = `https://wa.me/${info.whatsappNumber}?text=Hola,%20me%20gustaría%20solicitar%20una%20proforma`;
 
   return (
@@ -38,20 +39,20 @@ export const Hero = () => {
               >
                 Solicitar Proforma
               </a>
-              <a
-                href="#servicios"
+              <Link
+                to="/servicios"
                 className="w-full sm:w-auto flex items-center justify-center gap-2 bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-zinc-200 font-semibold px-6 py-4 rounded-xl transition-all"
               >
                 <span>Ver Catálogo</span>
                 <ChevronRight className="w-4 h-4 text-yellow-400" />
-              </a>
+              </Link>
             </div>
 
             {/* Puntos de Confianza Rápida */}
             <div className="pt-8 grid grid-cols-1 sm:grid-cols-3 gap-4 border-t border-zinc-800/80">
               {trustPoints.map((point, index) => (
                 <div key={index} className="text-center lg:text-left space-y-1">
-                  <h4 className="text-sm font-bold text-yellow-400">{point.title}</h4>
+                  <h3 className="text-sm font-bold text-yellow-400">{point.title}</h3>
                   <p className="text-xs text-zinc-400">{point.description}</p>
                 </div>
               ))}

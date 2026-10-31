@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { MapPin, Phone, Mail, Clock, Send, Upload, CheckCircle } from 'lucide-react';
-import { siteData } from '../data/siteData';
+import { companyData } from '../data/company';
+import { servicesData } from '../data/services';
 
 export const Contact = () => {
-  const { info, services } = siteData;
+  const { info } = companyData;
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    service: services[0]?.title || '',
+    service: servicesData[0]?.title || '',
     message: '',
     fileName: ''
   });
@@ -20,7 +21,9 @@ export const Contact = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const text = `Hola, mi nombre es *${formData.name}*.\n*Servicio de interés:* ${formData.service}\n*Teléfono:* ${formData.phone}\n*Detalles:* ${formData.message}${formData.fileName ? `\n*Archivo adjunto propuesto:* ${formData.fileName}` : ''}`;
+    const text = `Hola, mi nombre es *${formData.name}*.\n*Servicio de interés:* ${formData.service}\n*Teléfono:* ${formData.phone}\n*Detalles:* ${formData.message}${
+      formData.fileName ? `\n*Archivo adjunto propuesto:* ${formData.fileName} (lo adjuntaré directamente en este chat)` : ''
+    }`;
     const url = `https://wa.me/${info.whatsappNumber}?text=${encodeURIComponent(text)}`;
     window.open(url, '_blank');
   };
@@ -83,7 +86,7 @@ export const Contact = () => {
                   onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                   className="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-yellow-400 transition-colors"
                 >
-                  {services.map((serv) => (
+                  {servicesData.map((serv) => (
                     <option key={serv.id} value={serv.title}>
                       {serv.title}
                     </option>
@@ -112,17 +115,20 @@ export const Contact = () => {
                     onChange={handleFileChange}
                     className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                   />
-                  <div className="flex items-center justify-center gap-2 text-zinc-400 text-xs">
+                  <div className="flex flex-col items-center justify-center gap-1 text-zinc-400 text-xs">
                     {formData.fileName ? (
                       <>
-                        <CheckCircle className="w-4 h-4 text-yellow-400" />
-                        <span className="text-yellow-400 font-semibold">{formData.fileName}</span>
+                        <div className="flex items-center gap-2">
+                          <CheckCircle className="w-4 h-4 text-yellow-400" />
+                          <span className="text-yellow-400 font-semibold">{formData.fileName}</span>
+                        </div>
+                        <span className="text-[11px] text-zinc-500">Recuerda adjuntar el archivo directamente en la conversación al abrirse WhatsApp.</span>
                       </>
                     ) : (
-                      <>
+                      <div className="flex items-center gap-2">
                         <Upload className="w-4 h-4 text-yellow-400" />
                         <span>Sube tu archivo PDF, Illustrator o imagen</span>
-                      </>
+                      </div>
                     )}
                   </div>
                 </div>

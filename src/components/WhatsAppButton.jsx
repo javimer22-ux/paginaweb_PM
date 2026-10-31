@@ -1,9 +1,9 @@
 import React from 'react';
 import { MessageCircle } from 'lucide-react';
-import { siteData } from '../data/siteData';
+import { companyData } from '../data/company';
 
 export const WhatsAppButton = () => {
-  const { info } = siteData;
+  const { info } = companyData;
   const whatsappUrl = `https://wa.me/${info.whatsappNumber}?text=Hola,%20quisiera%20cotizar%20un%20proyecto`;
 
   return (

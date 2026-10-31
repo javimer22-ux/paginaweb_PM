@@ -1,8 +1,8 @@
 import React from 'react';
-import { siteData } from '../data/siteData';
+import { companyData } from '../data/company';
 
 export const Footer = () => {
-  const { info, socials } = siteData;
+  const { info, socials } = companyData;
 
   return (
     <footer className="bg-zinc-950 text-zinc-400 py-12 border-t border-zinc-900 text-xs">
